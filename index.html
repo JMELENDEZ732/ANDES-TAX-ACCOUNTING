@@ -1,91 +1,378 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Andes Tax & Accounting | Asesoría Contable y Tributaria</title>
-  <meta name="description" content="Andes Tax & Accounting brinda asesoría contable, tributaria y financiera para empresas en Perú y Latinoamérica. Expertos en transformación digital contable." />
-  <meta name="keywords" content="contadores Perú, estudio contable Lima, asesoría tributaria, auditoría, transformación digital contable, Andes Tax" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://andestaxaccounting.github.io/" />
-  <link rel="stylesheet" href="style.css" />
-</head>
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Check, Calculator, FileSpreadsheet, Receipt, ShieldCheck, Building2, DollarSign, Phone, Mail, MessageSquare } from "lucide-react";
 
-<body>
-  <header class="main-header">
-    <div class="container">
-      <h1 class="logo">Andes Tax & Accounting</h1>
-      <nav>
-        <ul>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#nosotros">Nosotros</a></li>
-          <li><a href="#contacto">Contacto</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+// Landing page para estudio contable en Perú (SPA)
+// - Tailwind + shadcn/ui
+// - Secciones: Hero, Servicios, Diferenciales, Planes, Testimonios, FAQ, Contacto, Footer
+// - CTA WhatsApp/Correo
+// - Textos listos para uso profesional; ajusta RUC, razón social, y WhatsApp
 
-  <section id="inicio" class="hero">
-    <div class="container">
-      <h2>Soluciones Contables para Empresas Modernas</h2>
-      <p>Ofrecemos servicios especializados en contabilidad, auditoría y asesoría tributaria con enfoque digital y precisión financiera.</p>
-      <a href="#contacto" class="btn">Contáctanos</a>
-    </div>
-  </section>
+const features = [
+  {
+    icon: <Calculator className="h-6 w-6" />, title: "Contabilidad Financiera",
+    desc: "PCGE, Estados Financieros NIIF, libros electrónicos y cierres mensuales."
+  },
+  {
+    icon: <Receipt className="h-6 w-6" />, title: "Tributación y SUNAT",
+    desc: "PDT/PLAME, detracciones, percepciones, fiscalizaciones y fraccionamientos."
+  },
+  {
+    icon: <FileSpreadsheet className="h-6 w-6" />, title: "Planillas y RR.HH.",
+    desc: "Altas/bajas T-Registro, CTS, vacaciones, 5ta categoría y reportes para bancos."
+  },
+  {
+    icon: <ShieldCheck className="h-6 w-6" />, title: "Control Interno y Auditoría",
+    desc: "Mapeo de procesos, matrices de riesgo, pruebas sustantivas y cumplimiento."
+  },
+  {
+    icon: <Building2 className="h-6 w-6" />, title: "Especialista Inmobiliario",
+    desc: "Reconocimiento de ingresos (NIIF 15/IFRS 15), arrendamientos (NIIF 16) y costeo."
+  },
+  {
+    icon: <DollarSign className="h-6 w-6" />, title: "Digitalización Contable",
+    desc: "Automatización en Excel/Google Sheets, dashboards y flujos 100% paperless."
+  },
+];
 
-  <section id="servicios" class="section">
-    <div class="container">
-      <h2>Nuestros Servicios</h2>
-      <div class="services-grid">
-        <div class="service-card">
-          <h3>Contabilidad Financiera</h3>
-          <p>Registro, análisis y presentación de información financiera conforme a NIIF, garantizando transparencia y cumplimiento tributario.</p>
+const plans = [
+  {
+    name: "Emprendedor",
+    price: "S/ 490",
+    period: "mensuales",
+    items: [
+      "Hasta 100 comprobantes/mes",
+      "Declaraciones mensuales (IGV/Renta)",
+      "Asesoría por WhatsApp",
+      "Cierre contable anual básico",
+    ],
+    highlight: false,
+  },
+  {
+    name: "PyME",
+    price: "S/ 890",
+    period: "mensuales",
+    items: [
+      "Hasta 350 comprobantes/mes",
+      "Estados Financieros trimestrales",
+      "Planillas hasta 10 trabajadores",
+      "Acompañamiento ante SUNAT",
+    ],
+    highlight: true,
+  },
+  {
+    name: "Inmobiliaria",
+    price: "A medida",
+    period: "",
+    items: [
+      "NIIF 15 (devengamiento y control de entregables)",
+      "NIIF 16 (arrendamientos)",
+      "Reportes para financiamiento",
+      "Auditoría interna por proyecto",
+    ],
+    highlight: false,
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Pueden asumir la contabilidad completa de mi empresa?",
+    a: "Sí. Desde la implementación del plan de cuentas y libros electrónicos, hasta declaraciones, planillas y reportes gerenciales."
+  },
+  {
+    q: "¿Trabajan 100% remoto?",
+    a: "Sí. Usamos firma digital, repositorios en la nube y canales de atención (WhatsApp/Correo). También podemos coordinar visitas puntuales."
+  },
+  {
+    q: "¿Cómo definen el honorario final?",
+    a: "Según volumen de comprobantes, número de trabajadores, complejidad tributaria y requerimientos de reportes. Ofrecemos evaluación sin costo."
+  },
+  {
+    q: "¿Atienden fiscalizaciones SUNAT?",
+    a: "Sí. Preparamos descargos, conciliaciones y atendemos requerimientos dentro de los plazos."
+  },
+];
+
+export default function ContabilidadLanding() {
+  const whatsapp = "https://wa.me/51999999999"; // Reemplaza con tu número con código de país
+  const email = "mailto:contacto@tuestudiocontable.pe"; // Reemplaza con tu correo
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50 text-slate-800">
+      {/* Meta básica SEO (para frameworks con soporte a head) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AccountingService",
+            name: "Estudio Contable – Servicios Profesionales",
+            areaServed: "PE",
+            url: "https://tuestudiocontable.pe",
+            telephone: "+51 999 999 999",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "Lima",
+              addressCountry: "PE",
+            },
+            sameAs: [whatsapp.replace("https://", "")] ,
+            serviceType: [
+              "Contabilidad Financiera",
+              "Tributación SUNAT",
+              "Planillas",
+              "Auditoría Interna",
+              "NIIF Inmobiliario",
+              "Digitalización Contable",
+            ],
+          }),
+        }}
+      />
+
+      {/* Navbar */}
+      <header className="sticky top-0 z-40 backdrop-blur bg-white/80 border-b border-slate-200">
+        <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Calculator className="h-6 w-6" />
+            <span className="font-semibold">Estudio Contable</span>
+          </div>
+          <nav className="hidden md:flex items-center gap-6 text-sm">
+            <a href="#servicios" className="hover:text-slate-900">Servicios</a>
+            <a href="#diferenciales" className="hover:text-slate-900">Por qué nosotros</a>
+            <a href="#planes" className="hover:text-slate-900">Planes</a>
+            <a href="#faq" className="hover:text-slate-900">FAQ</a>
+            <a href="#contacto" className="hover:text-slate-900">Contacto</a>
+          </nav>
+          <div className="flex items-center gap-2">
+            <Button asChild className="rounded-2xl">
+              <a href={whatsapp} target="_blank" rel="noreferrer" className="flex items-center gap-2">
+                <MessageSquare className="h-4 w-4"/> Cotiza por WhatsApp
+              </a>
+            </Button>
+          </div>
         </div>
-        <div class="service-card">
-          <h3>Auditoría y Control Interno</h3>
-          <p>Evaluamos procesos y controles contables bajo estándares COSO y NIA, fortaleciendo la fiabilidad de los estados financieros.</p>
-        </div>
-        <div class="service-card">
-          <h3>Asesoría Tributaria</h3>
-          <p>Planificación fiscal y gestión SUNAT con enfoque estratégico y legal, reduciendo contingencias y optimizando recursos.</p>
-        </div>
-        <div class="service-card">
-          <h3>Transformación Digital Contable</h3>
-          <p>Implementamos soluciones ERP, automatización y analítica digital para optimizar procesos contables en tiempo real.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+      </header>
 
-  <section id="nosotros" class="section bg-light">
-    <div class="container">
-      <h2>Quiénes Somos</h2>
-      <p><strong>Andes Tax & Accounting</strong> es un estudio contable peruano con visión global. Nuestro equipo combina experiencia financiera, conocimiento tributario y tecnología para ofrecer soluciones integrales a empresas que buscan eficiencia y precisión en su información contable.</p>
-    </div>
-  </section>
+      {/* Hero */}
+      <section className="mx-auto max-w-6xl px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+            Contabilidad, impuestos y reportes gerenciales
+            <span className="block text-slate-500 font-semibold mt-2">precisos y a tiempo</span>
+          </h1>
+          <p className="mt-5 text-slate-600 text-lg">
+            Externaliza tu contabilidad con un equipo especializado en NIIF y normativa peruana. 
+            Optimiza el flujo de caja, cumple con SUNAT y toma decisiones con datos confiables.
+          </p>
+          <div className="mt-6 flex flex-col sm:flex-row gap-3">
+            <Button size="lg" asChild className="rounded-2xl">
+              <a href={whatsapp} target="_blank" rel="noreferrer" className="flex items-center gap-2">
+                <Phone className="h-5 w-5"/> Agenda una evaluación
+              </a>
+            </Button>
+            <Button size="lg" variant="outline" asChild className="rounded-2xl">
+              <a href="#planes">Ver planes</a>
+            </Button>
+          </div>
+          <ul className="mt-6 text-sm text-slate-500 grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <li className="flex items-center gap-2"><Check className="h-4 w-4"/> NIIF / PCGE</li>
+            <li className="flex items-center gap-2"><Check className="h-4 w-4"/> SUNAT / Libros electrónicos</li>
+            <li className="flex items-center gap-2"><Check className="h-4 w-4"/> Confidencialidad y SLA</li>
+          </ul>
+        </div>
+        <div className="bg-white rounded-3xl shadow p-6 border border-slate-200">
+          <div className="text-sm text-slate-500 mb-2">Demo de reporte gerencial</div>
+          <div className="grid grid-cols-3 gap-3">
+            <Card className="col-span-3">
+              <CardHeader className="pb-2"><CardTitle className="text-base">KPIs de liquidez</CardTitle></CardHeader>
+              <CardContent className="text-sm text-slate-600">
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <div className="text-2xl font-bold">1.62x</div>
+                    <div>Razón corriente</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold">38 días</div>
+                    <div>Periodo de cobro</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold">29 días</div>
+                    <div>Periodo de pago</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-2"><CardTitle className="text-base">IGV</CardTitle></CardHeader>
+              <CardContent className="text-sm">Declaración preparada ✔️</CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-2"><CardTitle className="text-base">Renta</CardTitle></CardHeader>
+              <CardContent className="text-sm">Pagos a cuenta optimizados</CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-2"><CardTitle className="text-base">Planillas</CardTitle></CardHeader>
+              <CardContent className="text-sm">Altas/bajas al día</CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
 
-  <section id="contacto" class="section">
-    <div class="container">
-      <h2>Contáctanos</h2>
-      <form class="contact-form" action="https://formspree.io/f/xqaklrya" method="POST">
-        <input type="text" name="nombre" placeholder="Tu nombre" required />
-        <input type="email" name="email" placeholder="Tu correo" required />
-        <textarea name="mensaje" placeholder="Tu mensaje" required></textarea>
-        <button type="submit" class="btn">Enviar mensaje</button>
-      </form>
-      <p class="contact-info">
-        📍 Lima, Perú<br />
-        📧 josemelendez732@gmail.com<br />
-        ☎ +51 938 121 011
-      </p>
-    </div>
-  </section>
+      {/* Servicios */}
+      <section id="servicios" className="mx-auto max-w-6xl px-4 py-8">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">Servicios</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {features.map((f, i) => (
+            <Card key={i} className="rounded-3xl">
+              <CardHeader className="flex flex-row items-center gap-3 pb-2">
+                <div className="p-2 rounded-xl bg-slate-100">{f.icon}</div>
+                <CardTitle className="text-lg">{f.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-slate-600">{f.desc}</CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
 
-  <footer class="footer">
-    <div class="container">
-      <p>© 2025 Andes Tax & Accounting — Todos los derechos reservados.</p>
+      {/* Diferenciales */}
+      <section id="diferenciales" className="mx-auto max-w-6xl px-4 py-8">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">¿Por qué elegirnos?</h2>
+        <div className="grid md:grid-cols-3 gap-6 text-sm text-slate-600">
+          <Card className="rounded-3xl">
+            <CardHeader className="pb-2"><CardTitle className="text-lg">Precisión y Cumplimiento</CardTitle></CardHeader>
+            <CardContent>
+              Protocolos de revisión en doble etapa, checklist SUNAT y actualización NIIF continua.
+            </CardContent>
+          </Card>
+          <Card className="rounded-3xl">
+            <CardHeader className="pb-2"><CardTitle className="text-lg">Visibilidad 24/7</CardTitle></CardHeader>
+            <CardContent>
+              Entregamos tableros con KPIs clave (flujo, rentabilidad, rotaciones) y repositorio digital de evidencias.
+            </CardContent>
+          </Card>
+          <Card className="rounded-3xl">
+            <CardHeader className="pb-2"><CardTitle className="text-lg">Soporte ágil</CardTitle></CardHeader>
+            <CardContent>
+              SLA de respuesta en horas hábiles y canal directo con el responsable contable de tu cuenta.
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Planes */}
+      <section id="planes" className="mx-auto max-w-6xl px-4 py-8">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">Planes y precios</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {plans.map((p, i) => (
+            <Card key={i} className={`rounded-3xl ${p.highlight ? 'border-slate-900' : ''}`}>
+              <CardHeader>
+                <CardTitle className="text-xl flex items-baseline gap-2">
+                  {p.name}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold">{p.price} <span className="text-base font-medium text-slate-500">{p.period}</span></div>
+                <ul className="mt-4 space-y-2 text-sm text-slate-600">
+                  {p.items.map((it, idx) => (
+                    <li key={idx} className="flex gap-2"><Check className="h-4 w-4 mt-0.5"/> {it}</li>
+                  ))}
+                </ul>
+                <Button asChild className="w-full mt-5 rounded-2xl">
+                  <a href={whatsapp} target="_blank" rel="noreferrer">Solicitar cotización</a>
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Testimonios */}
+      <section className="mx-auto max-w-6xl px-4 py-8">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">Resultados reales</h2>
+        <div className="grid md:grid-cols-3 gap-6 text-sm text-slate-600">
+          <Card className="rounded-3xl">
+            <CardContent className="pt-6">
+              “Nos ordenaron la contabilidad y hoy tenemos reportes gerenciales claros cada mes. Bajamos el periodo de cobro de 75 a 45 días.”
+              <div className="mt-3 font-semibold">– Gerente General, PyME logística</div>
+            </CardContent>
+          </Card>
+          <Card className="rounded-3xl">
+            <CardContent className="pt-6">
+              “Excelente soporte en fiscalización SUNAT; respondieron a tiempo y sin multas.”
+              <div className="mt-3 font-semibold">– Administrador, retail</div>
+            </CardContent>
+          </Card>
+          <Card className="rounded-3xl">
+            <CardContent className="pt-6">
+              “Implementaron NIIF 15 en nuestro proyecto inmobiliario y mejoró la trazabilidad del devengamiento.”
+              <div className="mt-3 font-semibold">– CFO, inmobiliaria</div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className="mx-auto max-w-6xl px-4 py-8">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">Preguntas frecuentes</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          {faqs.map((f, i) => (
+            <Card key={i} className="rounded-3xl">
+              <CardHeader className="pb-2"><CardTitle className="text-base">{f.q}</CardTitle></CardHeader>
+              <CardContent className="text-sm text-slate-600">{f.a}</CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Contacto */}
+      <section id="contacto" className="mx-auto max-w-6xl px-4 py-12">
+        <div className="grid md:grid-cols-2 gap-8 items-start">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold">Conversemos</h2>
+            <p className="mt-3 text-slate-600">Cuéntanos sobre tu negocio y recibe una propuesta en 24 horas hábiles.</p>
+            <div className="mt-6 flex flex-col gap-3 text-sm">
+              <a href={whatsapp} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:underline"><Phone className="h-4 w-4"/> WhatsApp</a>
+              <a href={email} className="flex items-center gap-2 hover:underline"><Mail className="h-4 w-4"/> contacto@tuestudiocontable.pe</a>
+            </div>
+          </div>
+          <Card className="rounded-3xl">
+            <CardHeader className="pb-2"><CardTitle className="text-lg">Solicita una cotización</CardTitle></CardHeader>
+            <CardContent>
+              <form className="space-y-3">
+                <Input placeholder="Nombre y empresa" />
+                <Input placeholder="Correo" type="email" />
+                <Input placeholder="Teléfono" />
+                <Textarea placeholder="Describe tu necesidad (volumen de comprobantes, trabajadores, rubro)" rows={5} />
+                <Button type="button" className="w-full rounded-2xl">Enviar</Button>
+                <p className="text-xs text-slate-500 mt-1">Al enviar, aceptas nuestras políticas de privacidad.</p>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-slate-200">
+        <div className="mx-auto max-w-6xl px-4 py-8 text-sm text-slate-600 grid md:grid-cols-3 gap-6">
+          <div>
+            <div className="font-semibold mb-2">Estudio Contable</div>
+            <p>Atención a Lima y todo el Perú. Especialistas en NIIF, SUNAT y transformación digital contable.</p>
+          </div>
+          <div>
+            <div className="font-semibold mb-2">Datos</div>
+            <p>RUC: 20XXXXXXXXXX</p>
+            <p>Dirección: Av. Ejemplo 123, Lima</p>
+          </div>
+          <div>
+            <div className="font-semibold mb-2">Contacto</div>
+            <p>WhatsApp: +51 999 999 999</p>
+            <p>Correo: contacto@tuestudiocontable.pe</p>
+          </div>
+        </div>
+        <div className="text-center text-xs text-slate-400 pb-6">© {new Date().getFullYear()} Estudio Contable. Todos los derechos reservados.</div>
+      </footer>
     </div>
-  </footer>
-</body>
-</html>
+  );
+}
